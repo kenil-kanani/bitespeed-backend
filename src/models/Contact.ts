@@ -5,7 +5,7 @@ import {
     InferCreationAttributes,
     CreationOptional 
   } from 'sequelize';
-  import sequelize from '../config/databaseConfig';
+  import sequelize from '@/config/databaseConfig';
   
   enum LinkPrecedence {
     PRIMARY = "primary",
