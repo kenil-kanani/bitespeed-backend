@@ -53,12 +53,19 @@ export class ContactRepository {
     }
   }
 
-  async createContact(email: string, phoneNumber: string): Promise<Contact> {
+  async createContact({
+    email, phoneNumber, linkedId, linkPrecedence
+  }: {
+    email: string,
+    phoneNumber: string,
+    linkedId?: number,
+    linkPrecedence: LinkPrecedence
+  }): Promise<Contact> {
     try {
       const contact = await Contact.create({ email, 
         phoneNumber, 
-        linkedId: null, 
-        linkPrecedence: LinkPrecedence.PRIMARY , 
+        linkedId: linkedId || null, 
+        linkPrecedence, 
         deletedAt: null 
       });
       return contact;
@@ -67,4 +74,18 @@ export class ContactRepository {
     }
   }
   
+
+  async updateContact(id: number, data: Partial<Contact>): Promise<Contact> {
+    try {
+      const contact = await Contact.findByPk(id);
+      if (!contact) {
+        throw new CustomError('Contact not found', StatusCodes.NOT_FOUND, 'contact_not_found');
+      }
+      await contact.update(data);
+      return contact;
+    } catch (error) {
+      throw new CustomError('Error in updateContact', StatusCodes.INTERNAL_SERVER_ERROR, 'internal_server_error');
+    }
+  }
+
 }
