@@ -1,9 +1,9 @@
 import express, { Express, Request, Response } from 'express';
 import sequelize from '@/config/databaseConfig';
 import { ContactController } from '@/controllers/contact-controller';
+import { serverConfig } from '@/config/serverConfig';
 
 const app: Express = express();
-const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -26,7 +26,7 @@ async function connectToDatabase() {
   }
 }
 
-app.listen(port, async () => {
+app.listen(serverConfig.PORT || 3000, async () => {
   await connectToDatabase();
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at http://localhost:${serverConfig.PORT}`);
 });
