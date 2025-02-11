@@ -15,8 +15,5 @@
       "src": "/(.*)",
       "dest": "dist/src/index.js"
     }
-  ],
-  "scripts": {
-    "vercel-build": "tsc"
-  }
+  ]
 } 
