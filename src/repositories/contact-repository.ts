@@ -88,4 +88,12 @@ export class ContactRepository {
     }
   }
 
+  async getAllContacts(): Promise<Contact[]> {
+    try {
+      return await Contact.findAll();
+    } catch (error) {
+      throw new CustomError('Error in getAllContacts', StatusCodes.INTERNAL_SERVER_ERROR, 'internal_server_error');
+    }
+  }
+
 }
